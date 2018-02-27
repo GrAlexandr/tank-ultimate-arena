@@ -6,7 +6,9 @@ body{
 
 .arena{
 	max-width: 100%;
-	background-image: url(../img/arena-sputnik.png);
+	/*background-image: url(../img/arena-sputnik.png);*/
+	/*background-color: #1b662f;*/
+	background-color: #957747;
 }
 
 .tank-arena {
