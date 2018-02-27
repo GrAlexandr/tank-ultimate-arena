@@ -5,13 +5,14 @@ const
 	server = http.Server(app),
 	path = require('path'),
 	socketIO = require('socket.io'),
-	io = socketIO(server);
+	io = socketIO(server),
+	port = process.env.PORT || 3000;
 
-app.set('port', 3000);
+app.set('port', port);
 app.use(express.static(__dirname + '/static'));
 
 server.listen(3000, () => {
-	console.log('Server running at port 3000');
+	console.log('Server running at port' + port);
 });
 
 let
