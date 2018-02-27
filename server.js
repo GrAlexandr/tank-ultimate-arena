@@ -138,8 +138,8 @@ io.on('connection', (client) => {
 
 	client.on('joinGame', (tank) => {
 		console.log(tank.name + ' joined the game');
-		let initX = getRandomInt(40, 1100);
-		let initY = getRandomInt(40, 600);
+		let initX = getRandomInt(40, 900);
+		let initY = getRandomInt(40, 500);
 		let tankId = idGenerator();
 
 		client.emit('addTank', { id: tankId, name: tank.name, type: tank.type, isLocal: true, x: initX, y: initY, hp: 100 });
