@@ -22,7 +22,7 @@ const
 
 app.use(express.static(__dirname + '/static'));
 
-let server = app.listen(process.env.PORT || 3000, function () {
+let server = app.listen(process.env.PORT, function () {
 	let port = server.address().port;
 	console.log('Server running at port %s', port);
 });
