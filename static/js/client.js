@@ -3,7 +3,7 @@ const
 	height = window.innerHeight;
 
 let
-	socket = io.connect('http://localhost:3000'),
+	socket = io.connect('https://tank-ultimate-arena.herokuapp.com/'),
 	game = new Game('#arena', width, height, socket),
 	selectedTank = 1,
 	tankName = '',

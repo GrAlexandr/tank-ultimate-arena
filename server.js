@@ -1,34 +1,21 @@
-// const
-// 	express = require('express'),
-// 	app = express(),
-// 	http = require('http'),
-// 	server = http.Server(app),
-// 	path = require('path'),
-// 	socketIO = require('socket.io'),
-// 	io = socketIO(server);
-//
-// let port = process.env.PORT || 3000;
-//
-// app.set('port', port);
-// app.use(express.static(__dirname + '/static'));
-//
-// server.listen(port, () => {
-// 	console.log('Server running at port' + port);
-// });
-//--------------------------------------------------
 const
 	express = require('express'),
-	app = express();
+	app = express(),
+	http = require('http'),
+	server = http.Server(app),
+	path = require('path'),
+	socketIO = require('socket.io'),
+	io = socketIO(server);
 
+let port = process.env.PORT || 3000;
+
+app.set('port', port);
 app.use(express.static(__dirname + '/static'));
 
-let server = app.listen(process.env.PORT, function () {
-	let port = server.address().port;
-	console.log('Server running at port %s', port);
+server.listen(port, () => {
+	console.log('Server running at port' + port);
 });
 
-let io = require('socket.io')(server);
-//----------------------------------------------------
 let
 	counter = 0,
 	getRandomInt = (min, max) => {
