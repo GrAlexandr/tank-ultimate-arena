@@ -41,7 +41,14 @@ class Tank {
 
 		this.$body.css('transform', 'rotateZ(' + this.baseAngle + 'deg)');
 
-		this.$body.append('<div id="cannon-t' + this.id + '" class="tank-cannon"></div>');
+		if(this.type === 1) {
+			this.$body.append('<div id="cannon-t' + this.id + '" class="tank-cannon1"></div>');
+		} else if(this.type === 2) {
+			this.$body.append('<div id="cannon-t' + this.id + '" class="tank-cannon2"></div>');
+		} else {
+			this.$body.append('<div id="cannon-t' + this.id + '" class="tank-cannon3"></div>');
+		}
+
 		this.$cannon = $('#cannon-t' + this.id);
 
 		this.$arena.append('<div id="info-i' + this.id + '" class="info"></div>');

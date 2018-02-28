@@ -3,9 +3,10 @@ const
 	height = window.innerHeight;
 
 let
-	socket = io.connect('https://tank-ultimate-arena.herokuapp.com/'),
+	// socket = io.connect('https://tank-ultimate-arena.herokuapp.com/'),
+	socket = io.connect('localhost:3000'),
 	game = new Game('#arena', width, height, socket),
-	selectedTank = 1,
+	tankType = 1,
 	tankName = '',
 	joinGame = (tankName, tankType, socket) => {
 		if(tankName !== ''){
@@ -31,7 +32,6 @@ socket.on('removeTank', (tankId) => {
 });
 
 $(document).ready( () => {
-
 	$('#btn').mouseover( () => {
 		$('#sound-fon').animate({opacity: 'toggle', height: 'toggle'}, 1000);
 		// console.log(document.getElementById('btn').innerHTML);
@@ -46,21 +46,21 @@ $(document).ready( () => {
 
 	$('#join').click( () => {
 		tankName = $('#tank-name').val();
-		joinGame(tankName, selectedTank, socket);
+		joinGame(tankName, tankType, socket);
 	});
 
 	$('#tank-name').keyup( (e) => {
 		tankName = $('#tank-name').val();
 		let key = e.keyCode;
 		if(key === 13){
-			joinGame(tankName, selectedTank, socket);
+			joinGame(tankName, tankType, socket);
 		}
 	});
 
 	$('ul.tank-selection li').click( function() {
 		$('.tank-selection li').removeClass('selected');
 		$(this).addClass('selected');
-		selectedTank = $(this).data('tank');
+		tankType = $(this).data('tank');
 	});
 
 	$(document).keyup( (e) => {
@@ -70,13 +70,13 @@ $(document).ready( () => {
 				if( $("li:first-child").attr("class") === 'selected' ) {
 					$('li:first-child').removeClass('selected');
 					$('li:nth-child(2)').addClass('selected');
-					selectedTank = $('li:nth-child(2)').data('tank');
+					tankType = $('li:nth-child(2)').data('tank');
 					break;
 				}
 			if( $("li:nth-child(2)").attr("class") === 'selected' ) {
 				$('li:nth-child(2)').removeClass('selected');
 				$('li:last-child').addClass('selected');
-				selectedTank = $('li:last-child').data('tank');
+				tankType = $('li:last-child').data('tank');
 				break;
 			}
 			break;
@@ -84,13 +84,13 @@ $(document).ready( () => {
 				if( $("li:nth-child(2)").attr("class") === 'selected' ) {
 					$('li:nth-child(2)').removeClass('selected');
 					$('li:first-child').addClass('selected');
-					selectedTank = $('li:first-child').data('tank');
+					tankType = $('li:first-child').data('tank');
 					break;
 				}
 				if( $("li:last-child").attr("class") === 'selected' ) {
 					$('li:last-child').removeClass('selected');
 					$('li:nth-child(2)').addClass('selected');
-					selectedTank = $('li:nth-child(2)').data('tank');
+					tankType = $('li:nth-child(2)').data('tank');
 					break;
 				}
 			break;
@@ -98,6 +98,6 @@ $(document).ready( () => {
 	});
 });
 
-$(window).on('beforeunload', () => {
+$(window).on('unload', () => {
 	socket.emit('leaveGame', tankName);
 });

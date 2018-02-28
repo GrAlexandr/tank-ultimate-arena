@@ -21,6 +21,7 @@ class Game {
 		} else {
 			this.tanks.push(tank);
 		}
+		console.log(this.tanks);
 	}
 
 	removeTank(tankId) {

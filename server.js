@@ -13,7 +13,7 @@ app.set('port', port);
 app.use(express.static(__dirname + '/static'));
 
 server.listen(port, () => {
-	console.log('Server running at port' + port);
+	console.log('Server running at port ' + port);
 });
 
 let
@@ -94,13 +94,13 @@ class GameServer {
 	}
 
 	cleanDeadTanks() {
-		this.tanks = this.tanks.filter((t) => {
+		this.tanks = this.tanks.filter( (t) => {
 			return t.hp > 0;
 		});
 	}
 
 	cleanDeadBalls() {
-		this.shells = this.shells.filter((shell) => {
+		this.shells = this.shells.filter( (shell) => {
 			return !shell.out;
 		});
 	}
@@ -168,7 +168,7 @@ io.on('connection', (client) => {
 	});
 
 	client.on('leaveGame', (tankId) => {
-		console.log(tankId + ' has left the game');
+		console.log(tankId + ' left us');
 		game.removeTank(tankId);
 		client.broadcast.emit('removeTank', tankId);
 	});

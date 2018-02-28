@@ -1,14 +1,14 @@
-body{
+body {
 	background-color: #957747;
 	font-family: sans-serif;
 	overflow: hidden;
 }
 
-.arena{
+.arena {
 	max-width: 100%;
-	/*background-image: url(../img/arena-sputnik.png);*/
+	background-image: url(../img/arena-sputnik.png);
 	/*background-color: #1b662f;*/
-	background-color: #957747;
+	/*background-color: #957747;*/
 }
 
 .tank-arena {
@@ -19,7 +19,7 @@ body{
 	margin-bottom: 5px;
 }
 
-.name-prompt{
+.name-prompt {
 	position: absolute;
 	top: 100px;
 	left: 50%;
@@ -50,13 +50,13 @@ label {
 	color: #ebee41;
 }
 
-.tank{
+.tank {
 	position: absolute;
 	background-repeat: no-repeat;
 	/*background-position: -3px 0;*/
 }
 
-.tank-selection{
+.tank-selection {
 	display: inline-block;
 	width: 350px;
 	padding: 0;
@@ -68,14 +68,14 @@ label {
 	margin: 0 auto;
 }
 
-.tank-select label{
+.tank-select label {
 	display: inline-block;
 	margin: 10px 0;
 	width: 100%;
 	text-align: center;
 }
 
-.tank-selection li{
+.tank-selection li {
 	display: inline-block;
 	float: left;
 	width: 33%;
@@ -86,39 +86,44 @@ label {
 	border: 2px solid #ebee41;
 }
 
-.tank-selection li.selected{
+.tank-selection li.selected {
 	border: 3px solid #5e0e14;
 	border-radius: 5px;
 	background-color: #e2e99f;
 }
 
-.t-1{
+.t-1 {
 	background-image: url(../img/tank-t1.png);
-	/*background: red;*/
 }
 
-.t-2{
+.t-2 {
 	background-image: url(../img/tank-t2.png);
-	/*background: blue;*/
 }
 
-.t-3{
+.t-3 {
 	background-image: url(../img/tank-t3.png);
-	/*background: yellow;*/
 }
-
-.tank-cannon{
+.tank-cannon1,
+.tank-cannon2,
+.tank-cannon3 {
 	position: absolute;
 	top: 5px;
 	left: 10px;
-	width: 80px;
-	height: 133px;
-	background-image: url(../img/b1.png);
-	background-position: -10px 0;
+	width: 56px;
+	height: 106px;
 	transform-origin: 30px 65px;
 }
+.tank-cannon1 {
+	background: url(../img/cannon1.png) 0 -5px no-repeat;
+}
+.tank-cannon2 {
+	background: url(../img/cannon2.png) 0 -5px no-repeat;;
+}
+.tank-cannon3 {
+	background: url(../img/cannon3.png) 0 -5px no-repeat;;
+}
 
-.cannon-shell{
+.cannon-shell {
 	position: absolute;
 	width: 7px;
 	height: 7px;
@@ -126,7 +131,7 @@ label {
 	background-color: #5e0e14;
 }
 
-.shell-explosion{
+.shell-explosion {
 	position: absolute;
 	display: inline-block;
 	background-color: #c4060e;
@@ -137,7 +142,7 @@ label {
 	transition: all .3s ease-out;
 }
 
-.shell-explosion.expand{
+.shell-explosion.expand {
 	width: 50px;
 	height: 50px;
 	background-color: #fc3e20;
@@ -147,7 +152,7 @@ label {
 	border-radius: 25px;
 }
 
-.explosion{
+.explosion {
 	position: absolute;
 	width: 100px;
 	height: 120px;
@@ -165,7 +170,7 @@ label {
 	opacity: .8;
 }
 
-.label{
+.label {
 	width: 100px;
 	display: inline-block;
 	font-size: 12px;
@@ -174,14 +179,15 @@ label {
 	color: #c40821;
 }
 
-.hp-bar{
+.hp-bar {
 	/*width: 100px;*/
 	height: 3px;
-	color: #7079d1;
+	/*color: #7079d1;*/
+	color: #a42a2a;
 	margin-bottom: 12px;
 }
 
-.fade{
+.fade {
 	opacity: .2;
 }
 
