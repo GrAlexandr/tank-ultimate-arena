@@ -10,8 +10,8 @@ class Tank {
 		this.type = type;
 		this.speed = 5;
 		this.$arena = $arena;
-		this.w = 80;
-		this.h = 133;
+		this.width = 80;
+		this.height = 133;
 		this.baseAngle = getRandomInt(0, 360);
 		this.baseAngle -= (this.baseAngle % 5);
 		this.cannonAngle = 0;
@@ -36,8 +36,8 @@ class Tank {
 	materialize() {
 		this.$arena.append('<div id="' + this.id + '" class="tank t-' + this.type + '"></div>');
 		this.$body = $('#' + this.id);
-		this.$body.css('width', this.w);
-		this.$body.css('height', this.h);
+		this.$body.css('width', this.width);
+		this.$body.css('height', this.height);
 
 		this.$body.css('transform', 'rotateZ(' + this.baseAngle + 'deg)');
 
@@ -167,14 +167,13 @@ class Tank {
 		let moveX = 0;
 		let moveY = 0;
 
-		if (this.dir.up) {
+		if(this.dir.up) {
 			moveY = -1;
 		} else if (this.dir.down) {
 			moveY = 1;
-		}
-		if (this.dir.left) {
+		} else if(this.dir.left) {
 			moveX = -1;
-		} else if (this.dir.right) {
+		} else if(this.dir.right) {
 			moveX = 1;
 		}
 

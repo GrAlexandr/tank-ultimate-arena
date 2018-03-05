@@ -21,9 +21,16 @@ class Game {
 		} else {
 			this.tanks.push(tank);
 		}
+		// console.log(this.localTank);
 		console.log(this.tanks);
 	}
-
+	//------------------------------------------------
+	arrayTanks(serverArrTanks) {
+		serverArrTanks.forEach( (tank, i, arr) => {
+			console.log('tank: ' + tank + '; number: ' + i + '; array: ' + arr);
+		});
+	}
+//-------------------------------------------------------
 	removeTank(tankId) {
 		this.tanks = this.tanks.filter( (t) => {
 			return t.id !== tankId

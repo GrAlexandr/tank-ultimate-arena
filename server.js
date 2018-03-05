@@ -5,19 +5,17 @@ const
 	server = http.Server(app),
 	path = require('path'),
 	socketIO = require('socket.io'),
-	io = socketIO(server);
-
-let port = process.env.PORT || 3000;
+	io = socketIO(server),
+ 	port = process.env.PORT || 3000;
 
 app.set('port', port);
 app.use(express.static(__dirname + '/static'));
 
 server.listen(port, () => {
-	console.log('Server running at port ' + port);
+	console.log(`Server listening on port ${port}`);
 });
 
 let
-	counter = 0,
 	getRandomInt = (min, max) => {
 		return Math.floor(Math.random() * (max - min)) + min;
 	},
@@ -64,7 +62,7 @@ class GameServer {
 
 	syncShells() {
 		this.shells.forEach( (shell) => {
-			this.detectCollision(shell);
+			this.detectCollisionShell(shell);
 			if(shell.x < 0 || shell.x > 5000
 				|| shell.y < 0 || shell.y > 3000) {
 				shell.out = true;
@@ -75,7 +73,7 @@ class GameServer {
 	}
 
 	//ОБНАРУЖИВАТЬ СТОЛКНОВЕНИЯ!!!
-	detectCollision(shell) {
+	detectCollisionShell(shell) {
 		this.tanks.forEach( (tank) => {
 			if(tank.id !== shell.ownerId && Math.abs(tank.x - shell.x) < 35	&& Math.abs(tank.y - shell.y) < 35) {
 				tank.hp -= 2;
@@ -84,7 +82,21 @@ class GameServer {
 			}
 		});
 	}
-
+//===========================================================
+	detectCollisionTanks() {
+		this.tanks.forEach( (tank, i, arr) => {
+			console.log('tank: ' + tank + '; number: ' + i + '; array: ' + arr);
+		});
+	}
+//============================================================
+	//-----------------
+	arrayTanks() {
+		// this.tanks.forEach( (tank, i, arr) => {
+		// 	console.log('tank: ' + tank + '; number: ' + i + '; array: ' + arr);
+		// });
+		console.log(this.tanks);
+	}
+//-------------------
 	getData() {
 		let gameData = {};
 		gameData.tanks = this.tanks;
@@ -138,7 +150,7 @@ io.on('connection', (client) => {
 	console.log('User connected');
 
 	client.on('joinGame', (tank) => {
-		console.log(tank.name + ' joined the game');
+		console.log(tank.name + ' in game');
 		let initX = getRandomInt(40, 900);
 		let initY = getRandomInt(40, 500);
 		let tankId = idGenerator();
@@ -148,18 +160,23 @@ io.on('connection', (client) => {
 
 		game.addTank({ id: tankId, name: tank.name, type: tank.type, hp: 100});
 	});
-
+//-----------------------------------------
+	client.on('eventServer', function (data) {
+		console.log(data);
+		client.emit('eventClient', { data: 'Hello Client' });
+	});
+//------------------------------------------
 	client.on('sync', (data) => {
 		if(data.tank !== undefined){
 			game.syncTank(data.tank);
 		}
 		game.syncShells();
+		// client.emit('sync', this.tanks);
 		client.emit('sync', game.getData());
 		client.broadcast.emit('sync', game.getData());
 
 		game.cleanDeadTanks();
 		game.cleanDeadBalls();
-		counter ++;
 	});
 
 	client.on('shoot', (sh) =>{

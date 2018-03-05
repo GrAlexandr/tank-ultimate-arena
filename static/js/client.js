@@ -3,14 +3,14 @@ const
 	height = window.innerHeight;
 
 let
-	socket = io.connect('https://tank-ultimate-arena.herokuapp.com/'),
-	// socket = io.connect('localhost:3000'),
+	// socket = io.connect('https://tank-ultimate-arena.herokuapp.com/'),
+	socket = io.connect('localhost:3000'),
 	game = new Game('#arena', width, height, socket),
 	tankType = 1,
 	tankName = '',
 	joinGame = (tankName, tankType, socket) => {
 		if(tankName !== ''){
-			$('#prompt').hide();
+			$('.form').hide();
 			socket.emit('joinGame', {name: tankName, type: tankType});
 		}
 	};
@@ -18,7 +18,12 @@ let
 socket.on('addTank', (tank) => {
 	game.addTank(tank.id, tank.name, tank.type, tank.isLocal, tank.x, tank.y);
 });
-
+//-----------------------------------------
+socket.on('eventClient', function (data) {
+	console.log(data);
+});
+socket.emit('eventServer', { data: 'Hello Server' });
+//----------------------------------------
 socket.on('sync', (gameServerData) => {
 	game.receiveData(gameServerData);
 });
@@ -44,13 +49,13 @@ $(document).ready( () => {
 		// }
 	});
 
-	$('#join').click( () => {
-		tankName = $('#tank-name').val();
+	$('.btn').click( () => {
+		tankName = $('.tank-name').val();
 		joinGame(tankName, tankType, socket);
 	});
 
-	$('#tank-name').keyup( (e) => {
-		tankName = $('#tank-name').val();
+	$('.tank-name').keyup( (e) => {
+		tankName = $('.tank-name').val();
 		let key = e.keyCode;
 		if(key === 13){
 			joinGame(tankName, tankType, socket);

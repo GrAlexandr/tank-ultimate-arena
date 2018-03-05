@@ -7,50 +7,47 @@
 	<title>Tank ultimate Arena</title>
 
 	<link rel="shortcut icon" href="img/favicon.ico">
-	<link rel="stylesheet" href="css/lib/bootstrap.min.css">
-	<link rel="stylesheet" href="css/tanks.css">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+	<div class="wrap">
+		<div class="form">
+			<input type="text" class="tank-name" placeholder="Enter the name of the tank">
+			<input type="submit" class="btn" value="&#10010;">
+			<img class="tank-arena" src="img/tank-arena.png" alt="Tank ultimate arena">
 
-	<div id="prompt" class="name-prompt">
-		<div class="input-group">
-			<input id="tank-name" type="text" class="form-control" placeholder="Enter the name of the tank">
-			<span class="input-group-btn">
-				<input id="join" class="btn btn-primary" type="submit" value="Start">
-			</span>
+			<div class="tank-select">
+				<label>Choose a tank</label>
+				<ul class="tank-selection">
+					<li class="selected" data-tank="1">
+						<img src="img/tank-1.png">
+					</li>
+					<li data-tank="2">
+						<img src="img/tank-2.png">
+					</li>
+					<li data-tank="3">
+						<img src="img/tank-3.png">
+					</li>
+				</ul>
+			</div>
 		</div>
 
-		<img class="tank-arena" src="img/tank-arena.png" alt="Tank ultimate arena">
+		<div id="arena">
+			<!--<button id="btn">&laquo;</button>-->
+			<!--<audio id="sound-fon" src="sound/scooter_fire.mp3" autoplay preload controls>-->
+				<!--Тег audio не поддерживается вашим браузером-->
+			<!--</audio>-->
 
-		<div class="tank-select col-md-12">
-			<label>Choose a tank</label>
-			<ul class="tank-selection">
-				<li class="selected" data-tank="1">
-					<img src="img/tank-1.png">
-				</li>
-				<li data-tank="2">
-					<img src="img/tank-2.png">
-				</li>
-				<li data-tank="3">
-					<img src="img/tank-3.png">
-				</li>
-			</ul>
+			<canvas id="game"></canvas>
 		</div>
-
-	</div>
-
-	<div id="arena" class="arena">
-		<button id="btn">&laquo;</button>
-		<audio id="sound-fon" src="sound/scooter_fire.mp3" autoplay preload controls>
-			Тег audio не поддерживается вашим браузером
-		</audio>
-		<!--&#8230;
-		&laquo;
-		&#926;-->
 	</div>
 
 	<script type="text/javascript" src="js/lib/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="js/tiles.js"></script>
+	<script type="text/javascript" src="js/map.js"></script>
+	<script type="text/javascript" src="js/init.js"></script>
 	<script type="text/javascript" src="js/tank.js"></script>
 	<script type="text/javascript" src="js/shell.js"></script>
 	<script type="text/javascript" src="js/game.js"></script>
