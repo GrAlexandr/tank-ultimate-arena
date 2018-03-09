@@ -32,7 +32,7 @@ class GameServer {
 	constructor() {
 		this.tanks = [];
 		this.shells = [];
-		this.lastBallId = 0;
+		this.lastShellId = 0;
 	}
 
 	addTank(tank) {
@@ -63,8 +63,8 @@ class GameServer {
 	syncShells() {
 		this.shells.forEach( (shell) => {
 			this.detectCollisionShell(shell);
-			if(shell.x < 0 || shell.x > 5000
-				|| shell.y < 0 || shell.y > 3000) {
+			if(shell.x < 0 || shell.x > 3000
+				|| shell.y < 0 || shell.y > 1500) {
 				shell.out = true;
 			} else {
 				shell.fly();
@@ -103,24 +103,24 @@ class GameServer {
 		});
 	}
 
-	cleanDeadBalls() {
+	cleanDeadShells() {
 		this.shells = this.shells.filter( (shell) => {
 			return !shell.out;
 		});
 	}
 
-	increaseLastBallId() {
-		this.lastBallId ++;
-			if(this.lastBallId > 1000){
-				this.lastBallId = 0;
+	increaseLastShellId() {
+		this.lastShellId ++;
+			if(this.lastShellId > 1000){
+				this.lastShellId = 0;
 			}
 		}
 }
 
 class Shell {
 	constructor(ownerId, alpha, x, y) {
-		this.id = game.lastBallId;
-		game.increaseLastBallId();
+		this.id = game.lastShellId;
+		game.increaseLastShellId();
 		this.ownerId = ownerId;
 		this.alpha = alpha;
 		this.x = x;
@@ -162,7 +162,7 @@ io.on('connection', (client) => {
 		client.broadcast.emit('sync', game.getData());
 
 		game.cleanDeadTanks();
-		game.cleanDeadBalls();
+		game.cleanDeadShells();
 	});
 
 	client.on('shoot', (sh) =>{

@@ -6,8 +6,8 @@ const
 
 
 let
-	socket = io.connect('https://tank-ultimate-arena.herokuapp.com/'),
-	// socket = io.connect('localhost:3000'),
+	// socket = io.connect('https://tank-ultimate-arena.herokuapp.com/'),
+	socket = io.connect('localhost:3000'),
 	game = new Game('#arena', width, height, socket),
 	tankType = 1,
 	tankName = '',
