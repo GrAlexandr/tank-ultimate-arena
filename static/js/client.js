@@ -1,10 +1,13 @@
 const
-	width = window.innerWidth,
-	height = window.innerHeight;
+	// width = window.innerWidth,
+	// height = window.innerHeight;
+	width = 1536,
+	height = 734;
+
 
 let
-	socket = io.connect('https://tank-ultimate-arena.herokuapp.com/'),
-	// socket = io.connect('localhost:3000'),
+	// socket = io.connect('https://tank-ultimate-arena.herokuapp.com/'),
+	socket = io.connect('localhost:3000'),
 	game = new Game('#arena', width, height, socket),
 	tankType = 1,
 	tankName = '',
@@ -18,12 +21,7 @@ let
 socket.on('addTank', (tank) => {
 	game.addTank(tank.id, tank.name, tank.type, tank.isLocal, tank.x, tank.y);
 });
-//-----------------------------------------
-socket.on('eventClient', function (data) {
-	console.log(data);
-});
-socket.emit('eventServer', { data: 'Hello Server' });
-//----------------------------------------
+
 socket.on('sync', (gameServerData) => {
 	game.receiveData(gameServerData);
 });
@@ -36,20 +34,23 @@ socket.on('removeTank', (tankId) => {
 	game.removeTank(tankId);
 });
 
+//-----------------------------------------
+socket.on('eventClient', function (data) {
+	console.log(data);
+});
+socket.emit('eventServer', { data: 'Hello Server' });
+//----------------------------------------
+
 $(document).ready( () => {
 	$('#btn').mouseover( () => {
 		$('#sound-fon').animate({opacity: 'toggle', height: 'toggle'}, 1000);
-		// console.log(document.getElementById('btn').innerHTML);
-		// if($('#btn').css('display') === 'none') {
 			$('#btn').html('&raquo;');
 			$('#btn').css("opacity", 0.5);
-		// } else {
-		// 	$('#btn').html('&laquo;');
-		// 	$('#btn').css("opacity", 1);
-		// }
 	});
 
 	$('.btn').click( () => {
+		// $('#sound-fon')[0].play();
+		$('#arena').css('display','block');
 		tankName = $('.tank-name').val();
 		joinGame(tankName, tankType, socket);
 	});
@@ -58,6 +59,9 @@ $(document).ready( () => {
 		tankName = $('.tank-name').val();
 		let key = e.keyCode;
 		if(key === 13){
+			$('#sound-fon')[0].play();
+			$('#arena').css('display','block');
+			$("li:first-child").attr('class', 'selected');
 			joinGame(tankName, tankType, socket);
 		}
 	});
@@ -72,13 +76,13 @@ $(document).ready( () => {
 		let key = e.keyCode;
 		switch(key) {
 			case 39:
-				if( $("li:first-child").attr("class") === 'selected' ) {
+				if( $('li:first-child').attr('class') === 'selected' ) {
 					$('li:first-child').removeClass('selected');
 					$('li:nth-child(2)').addClass('selected');
 					tankType = $('li:nth-child(2)').data('tank');
 					break;
 				}
-			if( $("li:nth-child(2)").attr("class") === 'selected' ) {
+			if( $('li:nth-child(2)').attr('class') === 'selected' ) {
 				$('li:nth-child(2)').removeClass('selected');
 				$('li:last-child').addClass('selected');
 				tankType = $('li:last-child').data('tank');
@@ -86,13 +90,13 @@ $(document).ready( () => {
 			}
 			break;
 			case 37:
-				if( $("li:nth-child(2)").attr("class") === 'selected' ) {
+				if( $('li:nth-child(2)').attr('class') === 'selected' ) {
 					$('li:nth-child(2)').removeClass('selected');
 					$('li:first-child').addClass('selected');
 					tankType = $('li:first-child').data('tank');
 					break;
 				}
-				if( $("li:last-child").attr("class") === 'selected' ) {
+				if( $('li:last-child').attr('class') === 'selected' ) {
 					$('li:last-child').removeClass('selected');
 					$('li:nth-child(2)').addClass('selected');
 					tankType = $('li:nth-child(2)').data('tank');
@@ -105,4 +109,8 @@ $(document).ready( () => {
 
 $(window).on('unload', () => {
 	socket.emit('leaveGame', tankName);
+});
+
+$('#arena').click( function (event) {
+	console.log(this.value = event.clientX+':'+event.clientY);
 });

@@ -44,8 +44,8 @@ class GameServer {
 	}
 
 	removeTank(tankId) {
-		this.tanks = this.tanks.filter( (t) =>{
-			return t.id !== tankId;
+		this.tanks = this.tanks.filter( (tank) =>{
+			return tank.id !== tankId;
 		});
 	}
 
@@ -72,7 +72,6 @@ class GameServer {
 		});
 	}
 
-	//ОБНАРУЖИВАТЬ СТОЛКНОВЕНИЯ!!!
 	detectCollisionShell(shell) {
 		this.tanks.forEach( (tank) => {
 			if(tank.id !== shell.ownerId && Math.abs(tank.x - shell.x) < 35	&& Math.abs(tank.y - shell.y) < 35) {
@@ -84,19 +83,12 @@ class GameServer {
 	}
 //===========================================================
 	detectCollisionTanks() {
-		this.tanks.forEach( (tank, i, arr) => {
-			console.log('tank: ' + tank + '; number: ' + i + '; array: ' + arr);
-		});
+		// this.tanks.forEach( (tank, i, arr) => {
+		// 	// console.log('tank: ' + tank + '; number: ' + i + '; array: ' + arr);
+		// });
 	}
 //============================================================
-	//-----------------
-	arrayTanks() {
-		// this.tanks.forEach( (tank, i, arr) => {
-		// 	console.log('tank: ' + tank + '; number: ' + i + '; array: ' + arr);
-		// });
-		console.log(this.tanks);
-	}
-//-------------------
+
 	getData() {
 		let gameData = {};
 		gameData.tanks = this.tanks;
@@ -106,8 +98,8 @@ class GameServer {
 	}
 
 	cleanDeadTanks() {
-		this.tanks = this.tanks.filter( (t) => {
-			return t.hp > 0;
+		this.tanks = this.tanks.filter( (tank) => {
+			return tank.hp > 0;
 		});
 	}
 
@@ -151,27 +143,21 @@ io.on('connection', (client) => {
 
 	client.on('joinGame', (tank) => {
 		console.log(tank.name + ' in game');
-		let initX = getRandomInt(40, 900);
-		let initY = getRandomInt(40, 500);
+		let initX = getRandomInt(40, 130); // 40 * 900
+		let initY = getRandomInt(40, 600); //40 * 500
 		let tankId = idGenerator();
 
 		client.emit('addTank', { id: tankId, name: tank.name, type: tank.type, isLocal: true, x: initX, y: initY, hp: 100 });
-		client.broadcast.emit('addTank', { id: tankId, name: tank.name, type: tank.type, isLocal: false, x: initX, y: initY, hp: 100} );
+		client.broadcast.emit('addTank', { id: tankId, name: tank.name, type: tank.type, isLocal: false, x: initX, y: initY, hp: 100});
 
 		game.addTank({ id: tankId, name: tank.name, type: tank.type, hp: 100});
 	});
-//-----------------------------------------
-	client.on('eventServer', function (data) {
-		console.log(data);
-		client.emit('eventClient', { data: 'Hello Client' });
-	});
-//------------------------------------------
+
 	client.on('sync', (data) => {
 		if(data.tank !== undefined){
 			game.syncTank(data.tank);
 		}
 		game.syncShells();
-		// client.emit('sync', this.tanks);
 		client.emit('sync', game.getData());
 		client.broadcast.emit('sync', game.getData());
 
@@ -189,5 +175,12 @@ io.on('connection', (client) => {
 		game.removeTank(tankId);
 		client.broadcast.emit('removeTank', tankId);
 	});
+
+	//-----------------------------------------
+	client.on('eventServer', function (data) {
+		console.log(data);
+		client.emit('eventClient', { data: 'Hello Client' });
+	});
+//------------------------------------------
 
 });

@@ -12,16 +12,16 @@ let drawTiles = (canvas) => {
 			context.fillRect(0, 0, size / 2, size / 2);
 
 			context.fillStyle = "#808080";
-			context.fillRect(0        , 0            , size / 2 , size / 16);
-			context.fillRect(0        , size / 4 		 , size / 2 , size / 16);
-			context.fillRect(size / 4 , 0            , size / 16, size / 4 );
-			context.fillRect(size / 16, size / 4     , size / 16, size / 4 );
+			context.fillRect(0, 0, size / 2, size / 16);
+			context.fillRect(0, size / 4, size / 2, size / 16);
+			context.fillRect(size / 4, 0, size / 16, size / 4);
+			context.fillRect(size / 16, size / 4, size / 16, size / 4);
 
 			context.fillStyle = "#c0c0c0";
-			context.fillRect(0            , 3 * size / 16, size / 2 , size / 16);
-			context.fillRect(0            , 7 * size / 16, size / 2 , size / 16);
-			context.fillRect(3 * size / 16, 0            , size / 16, size / 4 );
-			context.fillRect(0            , 3 * size / 16, size / 16, size / 4 );
+			context.fillRect(0, 3 * size / 16, size / 2, size / 16);
+			context.fillRect(0, 7 * size / 16, size / 2, size / 16);
+			context.fillRect(3 * size / 16, 0, size / 16, size / 4);
+			context.fillRect(0, 3 * size / 16, size / 16, size / 4);
 		};
 
 		let hBrick = () => {
@@ -30,9 +30,9 @@ let drawTiles = (canvas) => {
 
 			context.fillStyle = "#808080";
 			context.beginPath();
-			context.moveTo(0       , size / 2);
+			context.moveTo(0, size / 2);
 			context.lineTo(size / 2, size / 2);
-			context.lineTo(size / 2, 0       );
+			context.lineTo(size / 2, 0);
 			context.fill();  
 
 			context.fillStyle = "#fff";

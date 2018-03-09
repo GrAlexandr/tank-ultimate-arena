@@ -22,7 +22,7 @@ class Game {
 			this.tanks.push(tank);
 		}
 		// console.log(this.localTank);
-		console.log(this.tanks);
+		// console.log(this.tanks);
 	}
 	//------------------------------------------------
 	arrayTanks(serverArrTanks) {
@@ -32,8 +32,8 @@ class Game {
 	}
 //-------------------------------------------------------
 	removeTank(tankId) {
-		this.tanks = this.tanks.filter( (t) => {
-			return t.id !== tankId
+		this.tanks = this.tanks.filter( (tank) => {
+			return tank.id !== tankId
 		});
 
 		$('#' + tankId).remove();
@@ -41,7 +41,7 @@ class Game {
 	}
 
 	killTank(tank) {
-		// tank.dead = true;
+		tank.dead = true;
 		this.removeTank(tank.id);
 
 		this.$arena.append('<img id="expl' + tank.id + '" class="explosion" src="./img/fire2.gif"/>');

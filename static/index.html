@@ -20,7 +20,7 @@
 			<div class="tank-select">
 				<label>Choose a tank</label>
 				<ul class="tank-selection">
-					<li class="selected" data-tank="1">
+					<li data-tank="1"> <!--class="selected"-->
 						<img src="img/tank-1.png">
 					</li>
 					<li data-tank="2">
@@ -34,10 +34,10 @@
 		</div>
 
 		<div id="arena">
-			<!--<button id="btn">&laquo;</button>-->
-			<!--<audio id="sound-fon" src="sound/scooter_fire.mp3" autoplay preload controls>-->
-				<!--Тег audio не поддерживается вашим браузером-->
-			<!--</audio>-->
+			<button id="btn">&laquo;</button>
+			<audio id="sound-fon" src="sound/scooter_fire.mp3" preload controls autoplay> <!-- autoplay -->
+				Тег audio не поддерживается вашим браузером
+			</audio>
 
 			<canvas id="game"></canvas>
 		</div>

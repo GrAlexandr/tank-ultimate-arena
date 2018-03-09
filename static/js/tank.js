@@ -11,7 +11,7 @@ class Tank {
 		this.speed = 5;
 		this.$arena = $arena;
 		this.width = 80;
-		this.height = 133;
+		this.height = 130;
 		this.baseAngle = getRandomInt(0, 360);
 		this.baseAngle -= (this.baseAngle % 5);
 		this.cannonAngle = 0;
@@ -160,16 +160,14 @@ class Tank {
 	}
 
 	move() {
-		if(this.dead) {
-			return;
-		}
+		if(this.dead) return;
 
 		let moveX = 0;
 		let moveY = 0;
 
 		if(this.dir.up) {
 			moveY = -1;
-		} else if (this.dir.down) {
+		} else if(this.dir.down) {
 			moveY = 1;
 		} else if(this.dir.left) {
 			moveX = -1;
@@ -177,15 +175,45 @@ class Tank {
 			moveX = 1;
 		}
 
-		moveX = this.speed * moveX;
-		moveY = this.speed * moveY;
+		moveX *= this.speed;
+		moveY *= this.speed;
 
-		if(this.x + moveX > (40) && (this.x + moveX) < (this.$arena.width() - 40)) {
+		if(this.x + moveX > 20 && (this.x + moveX) < (this.$arena.width() - 40)) {
 			this.x += moveX;
 		}
-		if(this.y + moveY > (40) && (this.y + moveY) < (this.$arena.height() - 40)) {
+		if(this.y + moveY > 5 && (this.y + moveY) < (this.$arena.height() - 50)) {
 			this.y += moveY;
 		}
+
+		if(this.x >= 133 && this.x <= 305 && this.y >= 117 && this.y <= 430) {
+			this.x -= moveX;
+			this.y -= moveY;
+		} else if(this.x >= 130 && this.x <= 590 && this.y >= 480 && this.y <= 670) {
+			this.x -= moveX;
+			this.y -= moveY;
+		} else if(this.x >= 680 && this.x <= 865 && this.y >= 480 && this.y <= 670) {
+			this.x -= moveX;
+			this.y -= moveY;
+		} else if(this.x >= 410 && this.x <= 582 && this.y >= 117 && this.y <= 430) {
+			this.x -= moveX;
+			this.y -= moveY;
+		} else if(this.x >= 582 && this.x <= 740 && this.y >= 260 && this.y <= 430) {
+			this.x -= moveX;
+			this.y -= moveY;
+		} else if(this.x >= 685 && this.x <= 865 && this.y >= 117 && this.y <= 430) {
+			this.x -= moveX;
+			this.y -= moveY;
+		} else if(this.x >= 1005 && this.x <= 1275 && this.y >= 70 && this.y <= 250) {
+			this.x -= moveX;
+			this.y -= moveY;
+		} else if(this.x >= 1005 && this.x <= 1190 && this.y >= 230 && this.y <= 525) {
+			this.x -= moveX;
+			this.y -= moveY;
+		} else if(this.x >= 1005 && this.x <= 1230 && this.y >= 350 && this.y <= 525) {
+			this.x -= moveX;
+			this.y -= moveY;
+		}
+
 		this.rotateBase();
 		this.setCannonAngle();
 		this.refresh();

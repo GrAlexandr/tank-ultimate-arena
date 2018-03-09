@@ -1,13 +1,18 @@
 body {
-	background-color: #957747;
+	background-image: url(../img/arena-sputnik.png);
 	font-family: sans-serif;
 	overflow: hidden;
 }
 #arena {
-	max-width: 100%;
-	/*background-image: url(../img/arena-sputnik.png);*/
-	/*background-color: #1b662f;*/
-	/*background-color: #957747;*/
+	display: none;
+	/*max-width: 100%;*/
+	width: 1600px;
+	height: 1486px;
+	margin: 0 auto;
+	background-color: #957747;
+}
+#game {
+	margin: 0 auto;
 }
 .wrap {
 	display: flex;
@@ -17,11 +22,11 @@ body {
 	align-items: center;
 }
 .form {
+	width: 430px;
 	position: absolute;
 	top: 100px;
 	left: 50%;
 	margin-left: -200px;
-	width: 430px;
 	z-index: 2;
 }
 .tank-arena {
@@ -40,11 +45,15 @@ body {
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
 	border: none;
+	background-color: #e2e99f;
 	font-size: 16px;
 	font-weight: bold;
 	color: #5e0e14;
 	cursor: text;
 	outline:0;
+}
+.tank-name:hover {
+	background-color: #fff;
 }
 .btn {
 	width: 40px;
@@ -97,14 +106,11 @@ body {
 .tank-selection li {
 	padding: 10px 20px;
 	cursor: pointer;
-	border: 2px solid #ebee41;
 }
 .tank-selection li:hover {
 	background-color: #808080;
 }
 .tank-selection li.selected {
-	border: 3px solid #5e0e14;
-	border-radius: 5px;
 	background-color: #e2e99f;
 }
 .t-1 {
@@ -180,17 +186,16 @@ body {
 .label {
 	width: 100px;
 	display: inline-block;
-	font-size: 12px;
+	margin-bottom: -15px;
+	font-size: 13px;
 	text-align: center;
 	font-weight: bold;
 	color: #c40821;
 }
 .hp-bar {
-	/*width: 100px;*/
 	height: 3px;
-	/*color: #7079d1;*/
 	color: #a42a2a;
-	margin-bottom: 12px;
+	margin-bottom: 10px;
 }
 .fade {
 	opacity: .2;
@@ -198,13 +203,13 @@ body {
 #sound-fon {
 	width: 290px;
 	height: 25px;
-	position: relative;
-	left: -3px;
+	position: absolute;
+	left: 24px;
 	opacity: .7;
 }
 #btn {
-	height: 25px;
-	position: relative;
-	top: -5px;
+	height: 27px;
+	position: absolute;
+	top: -2px;
 	opacity: .7;
 }
