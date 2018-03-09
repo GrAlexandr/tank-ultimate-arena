@@ -1,8 +1,8 @@
 const
-	// widthCanvas = window.innerWidth,
-	// heightCanvas = window.innerHeight;
-	widthCanvas = 1536,
-	heightCanvas = 734;
+	widthCanvas = window.innerWidth,
+	heightCanvas = window.innerHeight;
+	// widthCanvas = 1536,
+	// heightCanvas = 734;
 	size = 92;
 
 let init = () => {

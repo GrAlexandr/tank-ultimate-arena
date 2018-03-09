@@ -1,8 +1,8 @@
 const
-	// width = window.innerWidth,
-	// height = window.innerHeight;
-	width = 1536,
-	height = 734;
+	width = window.innerWidth,
+	height = window.innerHeight;
+	// width = 1536,
+	// height = 734;
 
 
 let
