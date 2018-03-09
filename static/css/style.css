@@ -6,14 +6,14 @@ body {
 #arena {
 	display: none;
 	/*max-width: 100%;*/
-	width: 1600px;
-	height: 1486px;
+	width: 1536px;
+	height: 734px;
 	margin: 0 auto;
 	background-color: #957747;
 }
-#game {
-	margin: 0 auto;
-}
+/*#game {*/
+	/*margin: 0 auto;*/
+/*}*/
 .wrap {
 	display: flex;
 	flex-direction: column;
