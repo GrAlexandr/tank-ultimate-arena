@@ -2,6 +2,6 @@
 
 npm install
 
-npm run dev
+npm run server-dev
 
 Server listening on port 3000
