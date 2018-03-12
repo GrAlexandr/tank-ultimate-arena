@@ -31,3 +31,5 @@ class Shell {
 		}, 1000);
 	}
 }
+
+export default Shell;

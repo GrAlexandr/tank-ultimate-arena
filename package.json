@@ -1,18 +1,30 @@
 {
-  "name": "tanks",
+  "name": "tank-ultimate-arena",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack -d --watch",
+    "start": "node server.js",
+    "build": "webpack -p",
+    "react-dev": "webpack -d --watch",
+    "server-dev": "nodemon server.js",
+    "postinstall": "webpack",
+    "heroku-postbuild": "webpack -p"
   },
   "dependencies": {
-    "express": "^4.13.3",
+    "body-parser": "^1.17.2",
+    "css-loader": "^0.28.8",
+    "expose-loader": "^0.7.5",
+    "express": "^4.15.3",
+    "file-loader": "^1.1.9",
     "http-server": "^0.11.1",
+    "json-loader": "^0.5.7",
+    "nodemon": "^1.15.1",
     "path": "^0.12.7",
-    "socket.io": "^1.3.7"
-  },
-  "devDependencies": {
-    "nodemon": "^1.14.11"
+    "socket.io": "^1.3.7",
+    "style-loader": "^0.19.1",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0"
   }
 }

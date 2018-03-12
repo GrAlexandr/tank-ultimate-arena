@@ -1,4 +1,4 @@
-let drawTiles = (canvas) => {
+export default function drawTiles(canvas, size) {
 		let context = canvas.getContext('2d');
 		    context.globalAlpha = 1;
 

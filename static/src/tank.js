@@ -1,7 +1,7 @@
-let
-	getRandomInt = (min, max) => {
-		return Math.floor(Math.random() * (max - min)) + min;
-	};
+// let
+// 	getRandomInt = (min, max) => {
+// 		return Math.floor(Math.random() * (max - min)) + min;
+// 	};
 
 class Tank {
 	constructor(id, name, type, $arena, game, isLocal, x, y, hp) {
@@ -313,3 +313,5 @@ class Tank {
 		this.game.socket.emit('shoot', serverShell);
 	}
 }
+
+export default Tank;

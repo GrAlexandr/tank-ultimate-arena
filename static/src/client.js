@@ -1,9 +1,13 @@
+import Game from './game';
+import init from './init';
+
+init (92);
+
 const
 	width = window.innerWidth,
 	height = window.innerHeight;
 	// width = 1536,
 	// height = 734;
-
 
 let
 	// socket = io.connect('https://tank-ultimate-arena.herokuapp.com/'),
@@ -111,6 +115,6 @@ $(window).on('unload', () => {
 	socket.emit('leaveGame', tankName);
 });
 
-$('#arena').click( function (event) {
-	console.log(this.value = event.clientX+':'+event.clientY);
-});
+// $('#arena').click( function (event) {
+// 	console.log(this.value = event.clientX+':'+event.clientY);
+// });

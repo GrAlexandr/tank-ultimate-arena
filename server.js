@@ -9,7 +9,7 @@ const
  	port = process.env.PORT || 3000;
 
 app.set('port', port);
-app.use(express.static(__dirname + '/static'));
+app.use(express.static(__dirname + '/static/dist'));
 
 server.listen(port, () => {
 	console.log(`Server listening on port ${port}`);
@@ -82,10 +82,15 @@ class GameServer {
 		});
 	}
 //===========================================================
-	detectCollisionTanks() {
-		// this.tanks.forEach( (tank, i, arr) => {
-		// 	// console.log('tank: ' + tank + '; number: ' + i + '; array: ' + arr);
-		// });
+	detectCollisionTanks(tankId) {
+		this.tanks.forEach( (tank) => {
+			if(tank.id !== tankId) {
+				tank.hp = 0;
+			}
+		});
+		this.tanks = this.tanks.filter( (tank) =>{
+			return tank.id !== tankId;
+		});
 	}
 //============================================================
 

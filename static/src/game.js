@@ -1,3 +1,6 @@
+import Tank from './tank';
+import Shell from './shell';
+
 class Game {
 	constructor(arenaId, w, h, socket) {
 		this.tanks = [];
@@ -118,3 +121,5 @@ class Game {
 		});
 	}
 }
+
+export default Game;

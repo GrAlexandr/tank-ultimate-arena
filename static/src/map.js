@@ -3,7 +3,7 @@ class Map {
 		this.arr = arr;
 	}
 
-	draw(canvas, tileSet) {
+	draw(canvas, tileSet, size) {
 		let ctx = canvas.getContext('2d');
 		canvas.height = 13 * size;
 		canvas.width  = 13 * size;
@@ -26,3 +26,5 @@ class Map {
 		}
 	}
 }
+
+export default Map;
