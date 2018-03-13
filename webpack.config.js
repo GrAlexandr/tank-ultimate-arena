@@ -22,13 +22,28 @@ module.exports = {
 			{
 				test: /\.jpg/,
 				loader: "url-loader?limit=10000&mimetype=image/jpg"
-			}
+			},
+			{
+				test: /\.(js|jsx)$/,
+				use: [
+					{
+						loader: 'babel-loader',
+						options: {
+							presets: ['es2015'],
+						},
+					},
+				],
+			},
 		]
 	},
 
 	plugins: [
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify('production')
+		}),
+		new webpack.optimize.UglifyJsPlugin({
+			sourceMap: false,
+			mangle: false
 		})
 	]
 };
