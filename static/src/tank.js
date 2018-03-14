@@ -10,9 +10,9 @@ class Tank {
 		this.type = type;
 		this.speed = 5;
 		this.$arena = $arena;
-		this.width = 80;
+		this.width = 75;
 		this.height = 130;
-		this.baseAngle = getRandomInt(0, 360);
+		this.baseAngle = 90;  //getRandomInt(0, 360);
 		this.baseAngle -= (this.baseAngle % 5);
 		this.cannonAngle = 0;
 		this.x = x;
@@ -75,8 +75,8 @@ class Tank {
 		let cannonAbsAngle = this.cannonAngle - this.baseAngle;
 		this.$cannon.css('transform', 'rotateZ(' + cannonAbsAngle + 'deg)');
 
-		this.$info.css('left', (this.x) + 'px');
-		this.$info.css('top', (this.y) + 'px');
+		this.$info.css('left', this.x + 'px');
+		this.$info.css('top', this.y + 'px');
 		if(this.isMoving()) {
 			this.$info.addClass('fade');
 		} else {
@@ -159,6 +159,27 @@ class Tank {
 		});
 	}
 
+	stop() {
+		let moveX = 0;
+		let moveY = 0;
+
+		if(this.dir.up) {
+			moveY = -1;
+		} else if(this.dir.down) {
+			moveY = 1;
+		} else if(this.dir.left) {
+			moveX = -1;
+		} else if(this.dir.right) {
+			moveX = 1;
+		}
+
+		moveX *= this.speed;
+		moveY *= this.speed;
+
+		this.x -= moveX;
+		this.y -= moveY;
+	}
+
 	move() {
 		if(this.dead) return;
 
@@ -186,32 +207,23 @@ class Tank {
 		}
 
 		if(this.x >= 133 && this.x <= 305 && this.y >= 117 && this.y <= 430) {
-			this.x -= moveX;
-			this.y -= moveY;
+			this.stop();
 		} else if(this.x >= 130 && this.x <= 590 && this.y >= 480 && this.y <= 670) {
-			this.x -= moveX;
-			this.y -= moveY;
+			this.stop();
 		} else if(this.x >= 680 && this.x <= 865 && this.y >= 480 && this.y <= 670) {
-			this.x -= moveX;
-			this.y -= moveY;
+			this.stop();
 		} else if(this.x >= 410 && this.x <= 582 && this.y >= 117 && this.y <= 430) {
-			this.x -= moveX;
-			this.y -= moveY;
+			this.stop();
 		} else if(this.x >= 582 && this.x <= 740 && this.y >= 260 && this.y <= 430) {
-			this.x -= moveX;
-			this.y -= moveY;
+			this.stop();
 		} else if(this.x >= 685 && this.x <= 865 && this.y >= 117 && this.y <= 430) {
-			this.x -= moveX;
-			this.y -= moveY;
+			this.stop();
 		} else if(this.x >= 1005 && this.x <= 1275 && this.y >= 70 && this.y <= 250) {
-			this.x -= moveX;
-			this.y -= moveY;
+			this.stop();
 		} else if(this.x >= 1005 && this.x <= 1190 && this.y >= 230 && this.y <= 525) {
-			this.x -= moveX;
-			this.y -= moveY;
+			this.stop();
 		} else if(this.x >= 1005 && this.x <= 1230 && this.y >= 350 && this.y <= 525) {
-			this.x -= moveX;
-			this.y -= moveY;
+			this.stop();
 		}
 
 		this.rotateBase();

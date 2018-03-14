@@ -24,16 +24,12 @@ class Game {
 		} else {
 			this.tanks.push(tank);
 		}
-		// console.log(this.localTank);
-		// console.log(this.tanks);
 	}
-	//------------------------------------------------
-	arrayTanks(serverArrTanks) {
-		serverArrTanks.forEach( (tank, i, arr) => {
-			console.log('tank: ' + tank + '; number: ' + i + '; array: ' + arr);
-		});
-	}
-//-------------------------------------------------------
+
+	// showTanks() {
+	// 	return this.tanks;
+	// }
+
 	removeTank(tankId) {
 		this.tanks = this.tanks.filter( (tank) => {
 			return tank.id !== tankId
@@ -41,6 +37,13 @@ class Game {
 
 		$('#' + tankId).remove();
 		$('#info-i' + tankId).remove();
+	}
+
+	collisionTanks(tank) {
+		this.$arena.append('<audio id="sound-exp' + tank.id + '" src="sound/exp.mp3" autoplay preload>');
+		setTimeout(() => {
+			$('#sound-exp' + tank.id).remove();
+		}, 1000);
 	}
 
 	killTank(tank) {
@@ -70,20 +73,23 @@ class Game {
 	}
 
 	sendData() {
-		let gameData = {};
-		gameData.tank = {
+		let gameDataTank = {
 			id: this.localTank.id,
 			x: this.localTank.x,
 			y: this.localTank.y,
 			baseAngle: this.localTank.baseAngle,
-			cannonAngle: this.localTank.cannonAngle
+			cannonAngle: this.localTank.cannonAngle,
 		};
-		this.socket.emit('sync', gameData);
+		this.socket.emit('sync', gameDataTank);
 	}
 
 	receiveData(serverData) {
 		serverData.tanks.forEach( (serverTank) => {
-			if(this.localTank !== undefined && serverTank.id === this.localTank.id) {
+			if(this.localTank !== undefined && serverTank.id !== this.localTank.id) {
+				if (Math.abs(this.localTank.x - serverTank.x) < 85 && Math.abs(this.localTank.y - serverTank.y) < 85) {
+					this.localTank.stop();
+				}
+			} else if(this.localTank !== undefined && serverTank.id === this.localTank.id) {
 				this.localTank.hp = serverTank.hp;
 				if(this.localTank.hp <= 0){
 					this.killTank(this.localTank);
@@ -98,13 +104,14 @@ class Game {
 					clientTank.baseAngle = serverTank.baseAngle;
 					clientTank.cannonAngle = serverTank.cannonAngle;
 					clientTank.hp = serverTank.hp;
-					if(clientTank.hp <= 0){
+					if (clientTank.hp <= 0) {
 						this.killTank(clientTank);
 					}
 					clientTank.refresh();
 					found = true;
 				}
 			});
+
 			if(!found && (this.localTank === undefined || serverTank.id !== this.localTank.id)) {
 				this.addTank(serverTank.id, serverTank.name, serverTank.type, false, serverTank.x, serverTank.y, serverTank.hp);
 			}

@@ -35,6 +35,10 @@ class GameServer {
 		this.lastShellId = 0;
 	}
 
+	// showTanks() {
+	// 	console.log(this.tanks);
+	// }
+
 	addTank(tank) {
 		this.tanks.push(tank);
 	}
@@ -49,17 +53,29 @@ class GameServer {
 		});
 	}
 
-	syncTank(newTankData) {
+	syncTank(newTank) {
 		this.tanks.forEach( (tank) => {
-			if(tank.id === newTankData.id){
-				tank.x = newTankData.x;
-				tank.y = newTankData.y;
-				tank.baseAngle = newTankData.baseAngle;
-				tank.cannonAngle = newTankData.cannonAngle;
+			if(tank.id === newTank.id) {
+				tank.x = newTank.x;
+				tank.y = newTank.y;
+				tank.baseAngle = newTank.baseAngle;
+				tank.cannonAngle = newTank.cannonAngle;
 			}
 		});
 	}
-
+//--------------
+// 	detectCollisionTanks(newTank) {
+// 		this.tanks.forEach( (tank) => {
+// 			if(tank.id !== newTank.id){
+// 				if(Math.abs(tank.x - newTank.x) < 75 && Math.abs(tank.y - newTank.y) < 75){
+// 					tank.hp = 0;
+// 					// console.log('tank: ' + tank.x + ' && ' + tank.y);
+// 					// console.log('newTank: ' + newTank.x + ' && ' + newTank.y);
+// 				}
+// 			}
+// 		});
+// 	}
+//-----------
 	syncShells() {
 		this.shells.forEach( (shell) => {
 			this.detectCollisionShell(shell);
@@ -81,18 +97,6 @@ class GameServer {
 			}
 		});
 	}
-//===========================================================
-	detectCollisionTanks(tankId) {
-		this.tanks.forEach( (tank) => {
-			if(tank.id !== tankId) {
-				tank.hp = 0;
-			}
-		});
-		this.tanks = this.tanks.filter( (tank) =>{
-			return tank.id !== tankId;
-		});
-	}
-//============================================================
 
 	getData() {
 		let gameData = {};
@@ -148,8 +152,24 @@ io.on('connection', (client) => {
 
 	client.on('joinGame', (tank) => {
 		console.log(tank.name + ' in game');
-		let initX = getRandomInt(40, 130); // 40 * 900
-		let initY = getRandomInt(40, 600); //40 * 500
+
+		let randomCoord = getRandomInt(1, 4);
+		let initX;
+		let initY;
+		if(randomCoord === 1) {
+			initX = getRandomInt(20, 80);
+			initY = getRandomInt(10, 300);
+		} else if(randomCoord === 2) {
+			initX = getRandomInt(50, 120);
+			initY = getRandomInt(300, 600);
+		} else if(randomCoord === 3) {
+			initX = getRandomInt(900, 1000);
+			initY = getRandomInt(10, 600);
+		} else if(randomCoord === 4) {
+			initX = getRandomInt(250, 950);
+			initY = getRandomInt(430, 500);
+		}
+
 		let tankId = idGenerator();
 
 		client.emit('addTank', { id: tankId, name: tank.name, type: tank.type, isLocal: true, x: initX, y: initY, hp: 100 });
@@ -158,9 +178,9 @@ io.on('connection', (client) => {
 		game.addTank({ id: tankId, name: tank.name, type: tank.type, hp: 100});
 	});
 
-	client.on('sync', (data) => {
-		if(data.tank !== undefined){
-			game.syncTank(data.tank);
+	client.on('sync', (dataTank) => {
+		if(dataTank !== undefined){
+			game.syncTank(dataTank);
 		}
 		game.syncShells();
 		client.emit('sync', game.getData());
@@ -182,10 +202,11 @@ io.on('connection', (client) => {
 	});
 
 	//-----------------------------------------
-	client.on('eventServer', function (data) {
-		console.log(data);
-		client.emit('eventClient', { data: 'Hello Client' });
-	});
+	// client.on('eventServer', function (data) {
+	// 	console.log(data);
+	// 	client.emit('eventClient', { data: 'Hello Client' });
+	// 	// client.emit('eventClient', );
+	// });
 //------------------------------------------
 
 });
