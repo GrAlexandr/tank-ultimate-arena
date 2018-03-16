@@ -35,10 +35,6 @@ class GameServer {
 		this.lastShellId = 0;
 	}
 
-	// showTanks() {
-	// 	console.log(this.tanks);
-	// }
-
 	addTank(tank) {
 		this.tanks.push(tank);
 	}
@@ -63,24 +59,12 @@ class GameServer {
 			}
 		});
 	}
-//--------------
-// 	detectCollisionTanks(newTank) {
-// 		this.tanks.forEach( (tank) => {
-// 			if(tank.id !== newTank.id){
-// 				if(Math.abs(tank.x - newTank.x) < 75 && Math.abs(tank.y - newTank.y) < 75){
-// 					tank.hp = 0;
-// 					// console.log('tank: ' + tank.x + ' && ' + tank.y);
-// 					// console.log('newTank: ' + newTank.x + ' && ' + newTank.y);
-// 				}
-// 			}
-// 		});
-// 	}
-//-----------
+
 	syncShells() {
 		this.shells.forEach( (shell) => {
 			this.detectCollisionShell(shell);
-			if(shell.x < 0 || shell.x > 3000
-				|| shell.y < 0 || shell.y > 1500) {
+			if(shell.x < 0 || shell.x > 1536
+				|| shell.y < 0 || shell.y > 734) {
 				shell.out = true;
 			} else {
 				shell.fly();
@@ -157,10 +141,10 @@ io.on('connection', (client) => {
 		let initX;
 		let initY;
 		if(randomCoord === 1) {
-			initX = getRandomInt(20, 80);
-			initY = getRandomInt(10, 300);
+			initX = getRandomInt(20, 120);
+			initY = getRandomInt(10, 700);
 		} else if(randomCoord === 2) {
-			initX = getRandomInt(50, 120);
+			initX = getRandomInt(1270, 1470);
 			initY = getRandomInt(300, 600);
 		} else if(randomCoord === 3) {
 			initX = getRandomInt(900, 1000);

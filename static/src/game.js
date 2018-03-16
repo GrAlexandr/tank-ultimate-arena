@@ -26,10 +26,6 @@ class Game {
 		}
 	}
 
-	// showTanks() {
-	// 	return this.tanks;
-	// }
-
 	removeTank(tankId) {
 		this.tanks = this.tanks.filter( (tank) => {
 			return tank.id !== tankId
@@ -37,13 +33,6 @@ class Game {
 
 		$('#' + tankId).remove();
 		$('#info-i' + tankId).remove();
-	}
-
-	collisionTanks(tank) {
-		this.$arena.append('<audio id="sound-exp' + tank.id + '" src="sound/exp.mp3" autoplay preload>');
-		setTimeout(() => {
-			$('#sound-exp' + tank.id).remove();
-		}, 1000);
 	}
 
 	killTank(tank) {
@@ -86,7 +75,7 @@ class Game {
 	receiveData(serverData) {
 		serverData.tanks.forEach( (serverTank) => {
 			if(this.localTank !== undefined && serverTank.id !== this.localTank.id) {
-				if (Math.abs(this.localTank.x - serverTank.x) < 85 && Math.abs(this.localTank.y - serverTank.y) < 85) {
+				if (Math.abs(this.localTank.x - serverTank.x) < 95 && Math.abs(this.localTank.y - serverTank.y) < 95) {
 					this.localTank.stop();
 				}
 			} else if(this.localTank !== undefined && serverTank.id === this.localTank.id) {

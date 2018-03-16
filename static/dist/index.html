@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div class="wrap">
+
 		<div class="form">
 			<input type="text" class="tank-name" placeholder="Enter the name of the tank">
 			<input type="submit" class="btn" value="&#10010;">
@@ -34,14 +34,13 @@
 		</div>
 
 		<div id="arena">
-			<!--<button id="btn">&laquo;</button>-->
-			<!--<audio id="sound-fon" src="sound/scooter_fire.mp3" preload controls autoplay> &lt;!&ndash; autoplay &ndash;&gt;-->
-				<!--Тег audio не поддерживается вашим браузером-->
-			<!--</audio>-->
+			<button id="btn">&laquo;</button>
+			<audio id="sound-fon" src="sound/scooter_fire.mp3" preload controls autoplay>
+				The audio tag is not supported by your browser
+			</audio>
 
 			<canvas id="game"></canvas>
 		</div>
-	</div>
 
 	<script type="text/javascript" src="lib/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="socket.io/socket.io.js"></script>

@@ -1,21 +1,6 @@
 body {
 	background-image: url(../img/arena-sputnik.png);
 	font-family: sans-serif;
-	overflow: hidden;
-}
-#arena {
-	display: none;
-	max-width: 100%;
-	/*width: 1536px;*/
-	/*height: 734px;*/
-	background-color: #957747;
-}
-.wrap {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-content: center;
-	align-items: center;
 }
 .form {
 	width: 430px;
@@ -117,6 +102,12 @@ body {
 }
 .t-3 {
 	background-image: url(../img/tank-t3.png);
+}
+#arena {
+	display: none;
+	width: 1536px;
+	height: 734px;
+	background-color: #957747;
 }
 .tank-cannon1,
 .tank-cannon2,

@@ -12,7 +12,7 @@ class Tank {
 		this.$arena = $arena;
 		this.width = 75;
 		this.height = 130;
-		this.baseAngle = 90;  //getRandomInt(0, 360);
+		this.baseAngle = getRandomInt(0, 360);
 		this.baseAngle -= (this.baseAngle % 5);
 		this.cannonAngle = 0;
 		this.x = x;
@@ -232,7 +232,10 @@ class Tank {
 	}
 
 	rotateBase() {
-		if((this.dir.up && this.dir.left)	|| (this.dir.down && this.dir.right)) {
+		if(this.dir.left && this.baseAngle === 0) {
+			this.baseAngle = 360;
+			this.baseAngle -= 5;
+		} else if((this.dir.up && this.dir.left)	|| (this.dir.down && this.dir.right)) {
 			this.setDiagonalLeft();
 		} else if((this.dir.up && this.dir.right)	|| (this.dir.down && this.dir.left)) {
 			this.setDiagonalRight();

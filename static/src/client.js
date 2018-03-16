@@ -1,17 +1,15 @@
 import Game from './game';
 import init from './init';
 
-init (92);
-
 const
-	width = window.innerWidth,
-	height = window.innerHeight;
-	// width = 1536,
-	// height = 734;
+	// width = window.innerWidth,
+	// height = window.innerHeight;
+	width = 1536,
+	height = 734;
 
 let
-	socket = io.connect('https://tank-ultimate-arena.herokuapp.com/'),
-	// socket = io.connect('localhost:3000'),
+	// socket = io.connect('https://tank-ultimate-arena.herokuapp.com/'),
+	socket = io.connect('localhost:3000'),
 	game = new Game('#arena', width, height, socket),
 	tankType = 1,
 	tankName = '',
@@ -55,6 +53,7 @@ $(document).ready( () => {
 	$('.btn').click( () => {
 		// $('#sound-fon')[0].play();
 		$('#arena').css('display','block');
+		$('body').css('background','#957747');
 		tankName = $('.tank-name').val();
 		joinGame(tankName, tankType, socket);
 	});
@@ -63,8 +62,9 @@ $(document).ready( () => {
 		tankName = $('.tank-name').val();
 		let key = e.keyCode;
 		if(key === 13){
-			$('#sound-fon')[0].play();
+			// $('#sound-fon')[0].play();
 			$('#arena').css('display','block');
+			$('body').css('background','#957747');
 			$("li:first-child").attr('class', 'selected');
 			joinGame(tankName, tankType, socket);
 		}
@@ -118,3 +118,5 @@ $(window).on('unload', () => {
 // $('#arena').click( function (event) {
 // 	console.log(this.value = event.clientX+':'+event.clientY);
 // });
+
+init (92);
