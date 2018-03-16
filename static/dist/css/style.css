@@ -108,6 +108,7 @@ body {
 	width: 1536px;
 	height: 734px;
 	background-color: #957747;
+	overflow: hidden;
 }
 .tank-cannon1,
 .tank-cannon2,
