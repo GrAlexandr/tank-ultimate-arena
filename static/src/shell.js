@@ -12,15 +12,15 @@ class Shell {
 	materialize() {
 		this.$arena.append('<div id="' + this.id + '" class="cannon-shell"></div>');
 		this.$body = $('#' + this.id);
-		this.$body.css('left', this.x + 10 + 'px'); //add 10
-		this.$body.css('top', this.y + 30 + 'px'); //add 30
+		this.$body.css('left', this.x + 10 + 'px');
+		this.$body.css('top', this.y + 30 + 'px');
 	}
 
 	explode() {
 		this.$arena.append('<div id="expl' + this.id + '" class="shell-explosion"></div>');
 		let $expl = $('#expl' + this.id);
-		$expl.css('left', this.x + 10 + 'px'); //add 10
-		$expl.css('top', this.y + 30 + 'px'); //add 30
+		$expl.css('left', this.x + 10 + 'px');
+		$expl.css('top', this.y + 30 + 'px');
 
 		setTimeout( () => {
 			$expl.addClass('expand');

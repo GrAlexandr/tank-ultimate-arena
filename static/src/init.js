@@ -1,16 +1,16 @@
 import Map from './map';
 import drawTiles from './tiles';
+import arr from './arr';
+
 
 export default function init(size) {
 	const
-		// widthCanvas = window.innerWidth,
-		// heightCanvas = window.innerHeight;
-	widthCanvas = 1536,
-	heightCanvas = 734;
+		widthCanvas = 1536,
+		heightCanvas = 734;
 
 	let canvas = document.getElementById("game");
-	    canvas.width  = widthCanvas;
-	    canvas.height = heightCanvas;
+		canvas.width  = widthCanvas;
+		canvas.height = heightCanvas;
 	let context = canvas.getContext("2d");
 		context.fillStyle = "#957747";
 		context.fillRect(0, 0, canvas.width, canvas.height);
@@ -18,34 +18,14 @@ export default function init(size) {
 
 	drawTiles(tileSetBuffer, size);
 
-	context.drawImage (tileSetBuffer, canvas.width / 2 - tileSetBuffer.width / 2, canvas.height / 2 - tileSetBuffer.height / 2);
-
 	let mapBuffer = document.createElement("canvas");
+
 	let field = new Map();
-
-	let arr = [
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-		[0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-		[0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0],
-		[0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0],
-		[0, 0, 0, 2, 2, 0, 0, 0, 0, 1, 1, 2, 2, 2, 2, 1, 1, 0, 0, 0, 0, 0, 2, 2, 0, 0],
-		[0, 0, 0, 2, 2, 0, 0, 0, 0, 1, 1, 2, 2, 2, 2, 1, 1, 0, 0, 0, 0, 0, 2, 2, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-	];
-
 		field.setArr(arr);
+		field.draw(canvas, tileSetBuffer, size);
 
-		field.draw(mapBuffer, tileSetBuffer, size);
 		context.save();
-			context.translate(size / 2, size / 2);
-			context.drawImage (mapBuffer, 0, 0);
+		context.translate(size / 2, size / 2);
+		context.drawImage (mapBuffer, 0, 0);
 		context.restore();
 };

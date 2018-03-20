@@ -5,12 +5,12 @@ class Map {
 
 	draw(canvas, tileSet, size) {
 		let ctx = canvas.getContext('2d');
-		canvas.height = 13 * size;
-		canvas.width  = 13 * size;
+		canvas.width = 1536;
+		canvas.height  = 734;
 		ctx.globalAlpha = 1;
 
-		for (let j = 0; j < 15; j++) {
-			for (let i = 0; i < 26; i++) {
+		for (let j = 0; j < 16; j++) {
+			for (let i = 0; i < 33; i++) {
 				switch (this.arr[j][i]) {
 					case 0:
 						ctx.drawImage(tileSet, 0, 0, size / 2, size / 2, i * size / 2, j * size / 2, size / 2, size / 2);

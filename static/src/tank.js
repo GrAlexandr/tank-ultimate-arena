@@ -1,3 +1,5 @@
+import arr from './arr';
+
 let
 	getRandomInt = (min, max) => {
 		return Math.floor(Math.random() * (max - min)) + min;
@@ -159,32 +161,11 @@ class Tank {
 		});
 	}
 
-	stop() {
-		let moveX = 0;
-		let moveY = 0;
-
-		if(this.dir.up) {
-			moveY = -1;
-		} else if(this.dir.down) {
-			moveY = 1;
-		} else if(this.dir.left) {
-			moveX = -1;
-		} else if(this.dir.right) {
-			moveX = 1;
-		}
-
-		moveX *= this.speed;
-		moveY *= this.speed;
-
-		this.x -= moveX;
-		this.y -= moveY;
-	}
-
 	move() {
 		if(this.dead) return;
 
-		let moveX = 0;
-		let moveY = 0;
+		let moveX = 0,
+				moveY = 0;
 
 		if(this.dir.up) {
 			moveY = -1;
@@ -206,29 +187,47 @@ class Tank {
 			this.y += moveY;
 		}
 
-		if(this.x >= 133 && this.x <= 305 && this.y >= 117 && this.y <= 430) {
-			this.stop();
-		} else if(this.x >= 130 && this.x <= 590 && this.y >= 480 && this.y <= 670) {
-			this.stop();
-		} else if(this.x >= 680 && this.x <= 865 && this.y >= 480 && this.y <= 670) {
-			this.stop();
-		} else if(this.x >= 410 && this.x <= 582 && this.y >= 117 && this.y <= 430) {
-			this.stop();
-		} else if(this.x >= 582 && this.x <= 740 && this.y >= 260 && this.y <= 430) {
-			this.stop();
-		} else if(this.x >= 685 && this.x <= 865 && this.y >= 117 && this.y <= 430) {
-			this.stop();
-		} else if(this.x >= 1005 && this.x <= 1275 && this.y >= 70 && this.y <= 250) {
-			this.stop();
-		} else if(this.x >= 1005 && this.x <= 1190 && this.y >= 230 && this.y <= 525) {
-			this.stop();
-		} else if(this.x >= 1005 && this.x <= 1230 && this.y >= 350 && this.y <= 525) {
-			this.stop();
-		}
-
 		this.rotateBase();
 		this.setCannonAngle();
 		this.refresh();
+		this.collisionDetectionWall(92);
+	}
+
+	stop() {
+		let moveX = 0,
+				moveY = 0;
+
+		if(this.dir.up) {
+			moveY = -1;
+		} else if(this.dir.down) {
+			moveY = 1;
+		} else if(this.dir.left) {
+			moveX = -1;
+		} else if(this.dir.right) {
+			moveX = 1;
+		}
+
+		moveX *= this.speed;
+		moveY *= this.speed;
+
+		this.x -= moveX;
+		this.y -= moveY;
+	}
+
+	collisionDetectionWall(size) {
+		arr.forEach( (cell, r) => {
+			arr[r].forEach( (cell, c) => {
+				let x = ( c *(size / 2) ),
+						y = ( r *(size / 2) ),
+						paddingX = 25,
+						paddingY = 15;
+				if(arr[r][c] === 1 || arr[r][c] === 2) {
+					if (x + size / 2 > this.x - paddingX * 1.5 && x + size / 2 < this.x + this.width + paddingX && y + size / 2 > this.y - paddingY * 1.5 && y + size / 2 < this.y + this.height - paddingY) {
+						this.stop();
+					}
+				}
+			});
+		});
 	}
 
 	rotateBase() {

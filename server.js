@@ -63,8 +63,8 @@ class GameServer {
 	syncShells() {
 		this.shells.forEach( (shell) => {
 			this.detectCollisionShell(shell);
-			if(shell.x < 0 || shell.x > 1536
-				|| shell.y < 0 || shell.y > 734) {
+			if(shell.x < 0 || shell.x > 1550
+				|| shell.y < 0 || shell.y > 750) {
 				shell.out = true;
 			} else {
 				shell.fly();
@@ -142,7 +142,7 @@ io.on('connection', (client) => {
 		let initY;
 		if(randomCoord === 1) {
 			initX = getRandomInt(20, 120);
-			initY = getRandomInt(10, 700);
+			initY = getRandomInt(10, 650);
 		} else if(randomCoord === 2) {
 			initX = getRandomInt(1270, 1470);
 			initY = getRandomInt(300, 600);
@@ -184,13 +184,5 @@ io.on('connection', (client) => {
 		game.removeTank(tankId);
 		client.broadcast.emit('removeTank', tankId);
 	});
-
-	//-----------------------------------------
-	// client.on('eventServer', function (data) {
-	// 	console.log(data);
-	// 	client.emit('eventClient', { data: 'Hello Client' });
-	// 	// client.emit('eventClient', );
-	// });
-//------------------------------------------
 
 });

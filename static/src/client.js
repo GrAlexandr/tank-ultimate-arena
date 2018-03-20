@@ -2,14 +2,12 @@ import Game from './game';
 import init from './init';
 
 const
-	// width = window.innerWidth,
-	// height = window.innerHeight;
 	width = 1536,
 	height = 734;
 
 let
-	socket = io.connect('https://tank-ultimate-arena.herokuapp.com/'),
-	// socket = io.connect('localhost:3000'),
+	// socket = io.connect('https://tank-ultimate-arena.herokuapp.com/'),
+	socket = io.connect('localhost:3000'),
 	game = new Game('#arena', width, height, socket),
 	tankType = 1,
 	tankName = '',
@@ -19,6 +17,8 @@ let
 			socket.emit('joinGame', {name: tankName, type: tankType});
 		}
 	};
+
+init (92);
 
 socket.on('addTank', (tank) => {
 	game.addTank(tank.id, tank.name, tank.type, tank.isLocal, tank.x, tank.y);
@@ -36,12 +36,9 @@ socket.on('removeTank', (tankId) => {
 	game.removeTank(tankId);
 });
 
-//-----------------------------------------
-// socket.on('eventClient', function (data) {
-// 	console.log(data);
-// });
-// socket.emit('eventServer', { data: 'Hello Server' });
-//----------------------------------------
+$(window).on('unload', () => {
+	socket.emit('leaveGame', tankName);
+});
 
 $(document).ready( () => {
 	$('#btn').mouseover( () => {
@@ -111,12 +108,6 @@ $(document).ready( () => {
 	});
 });
 
-$(window).on('unload', () => {
-	socket.emit('leaveGame', tankName);
-});
-
 // $('#arena').click( function (event) {
 // 	console.log(this.value = event.clientX+':'+event.clientY);
 // });
-
-init (92);
