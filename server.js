@@ -26,25 +26,25 @@ let
 				.substring(1);
 		};
 		return ( iD() + iD() + '-' + iD() + '-' + iD() + iD() + iD() );
-	},
-	initialPositionTank = () => {
-		let randomCoord = getRandomInt(1, 4);
-		let init = {};
-		if (randomCoord === 1) {
-			init.x = getRandomInt(20, 120);
-			init.y = getRandomInt(10, 650);
-		} else if (randomCoord === 2) {
-			init.x = getRandomInt(1270, 1470);
-			init.y = getRandomInt(300, 600);
-		} else if (randomCoord === 3) {
-			init.x = getRandomInt(900, 1000);
-			init.y = getRandomInt(10, 600);
-		} else if (randomCoord === 4) {
-			init.x = getRandomInt(250, 950);
-			init.y = getRandomInt(430, 500);
-		}
-		return init;
 	};
+	// initialPositionTank = () => {
+	// 	let randomCoord = getRandomInt(1, 4);
+	// 	let init = {};
+	// 	if (randomCoord === 1) {
+	// 		init.x = getRandomInt(20, 120);
+	// 		init.y = getRandomInt(10, 650);
+	// 	} else if (randomCoord === 2) {
+	// 		init.x = getRandomInt(1270, 1470);
+	// 		init.y = getRandomInt(300, 600);
+	// 	} else if (randomCoord === 3) {
+	// 		init.x = getRandomInt(900, 1000);
+	// 		init.y = getRandomInt(10, 600);
+	// 	} else if (randomCoord === 4) {
+	// 		init.x = getRandomInt(250, 950);
+	// 		init.y = getRandomInt(430, 500);
+	// 	}
+	// 	return init;
+	// };
 
 class GameServer {
 	constructor() {
@@ -154,26 +154,26 @@ class GameServer {
 		}
 	}
 
-	// initialPositionTank() {
-	// 	let init = {};
-	// 	init.x = getRandomInt(40, 1400);
-	// 	init.y = getRandomInt(20, 600);
-	// 		for (let r = 0; r < this.mapArray.length; r++) {
-	// 			for (let c = 0; c < this.mapArray[r].length; c++) {
-	// 				let wallX = ( c * (this.size / 2) ),
-	// 						wallY = ( r * (this.size / 2) );
-	// 				if(this.mapArray[r][c] === 1 || this.mapArray[r][c] === 2) {
-	// 					if (wallX > init.x - this.heightTank && wallY > init.y - this.widthTank || wallX + this.size / 2 < init.x + this.heightTank * 1.5 && wallY + this.size / 2 < init.y + this.widthTank * 1.5) {
-	// 						return init;
-	// 					} else {
-	// 						init.x = getRandomInt(40, 1400);
-	// 						init.y = getRandomInt(20, 600);
-	// 						--r;
-	// 					}
-	// 				}
-	// 			}
-	// 		}
-	// }
+	initialPositionTank() {
+		let init = {};
+		init.x = getRandomInt(40, 1400);
+		init.y = getRandomInt(20, 600);
+			for (let r = 0; r < this.mapArray.length; r++) {
+				for (let c = 0; c < this.mapArray[r].length; c++) {
+					let wallX = ( c * (this.size / 2) ),
+							wallY = ( r * (this.size / 2) );
+					if(this.mapArray[r][c] === 1 || this.mapArray[r][c] === 2) {
+						if (wallX > init.x - this.heightTank && wallY > init.y - this.widthTank || wallX + this.size / 2 < init.x + this.heightTank * 1.5 && wallY + this.size / 2 < init.y + this.widthTank * 1.5) {
+							return init;
+						} else {
+							init.x = getRandomInt(40, 1400);
+							init.y = getRandomInt(20, 600);
+							--r;
+						}
+					}
+				}
+			}
+	}
 
 	// initialPositionTank() {
 	// 	let init = {};
@@ -227,8 +227,8 @@ io.on('connection', (client) => {
 	client.on('joinGame', (tank) => {
 		console.log(tank.name + ' in game');
 
-		// let init = game.initialPositionTank();
-		let init = initialPositionTank();
+		let init = game.initialPositionTank();
+		// let init = initialPositionTank();
 		let tankId = idGenerator();
 
 		client.emit('addTank', { id: tankId, name: tank.name, type: tank.type, isLocal: true, x: init.x, y: init.y, hp: 100 });
