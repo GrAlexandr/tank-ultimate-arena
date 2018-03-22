@@ -1,6 +1,6 @@
 import Map from './map';
+import mapArray from './mapArray';
 import drawTiles from './tiles';
-import arr from './arr';
 
 
 export default function init(size) {
@@ -21,7 +21,7 @@ export default function init(size) {
 	let mapBuffer = document.createElement("canvas");
 
 	let field = new Map();
-		field.setArr(arr);
+		field.setArr(mapArray);
 		field.draw(canvas, tileSetBuffer, size);
 
 		context.save();

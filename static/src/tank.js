@@ -1,4 +1,4 @@
-import arr from './arr';
+import mapArray from './mapArray';
 
 let
 	getRandomInt = (min, max) => {
@@ -190,7 +190,7 @@ class Tank {
 		this.rotateBase();
 		this.setCannonAngle();
 		this.refresh();
-		this.collisionDetectionWall(92);
+		this.detectCollisionWall(92);
 	}
 
 	stop() {
@@ -214,15 +214,15 @@ class Tank {
 		this.y -= moveY;
 	}
 
-	collisionDetectionWall(size) {
-		arr.forEach( (cell, r) => {
-			arr[r].forEach( (cell, c) => {
-				let x = ( c *(size / 2) ),
-						y = ( r *(size / 2) ),
+	detectCollisionWall(size) {
+		mapArray.forEach( (cell, r) => {
+			mapArray[r].forEach( (cell, c) => {
+				let wallX = ( c *(size / 2) ),
+						wallY = ( r *(size / 2) ),
 						paddingX = 25,
 						paddingY = 15;
-				if(arr[r][c] === 1 || arr[r][c] === 2) {
-					if (x + size / 2 > this.x - paddingX * 1.5 && x + size / 2 < this.x + this.width + paddingX && y + size / 2 > this.y - paddingY * 1.5 && y + size / 2 < this.y + this.height - paddingY) {
+				if(mapArray[r][c] === 1 || mapArray[r][c] === 2) {
+					if (wallX + size / 2 > this.x - paddingX * 1.5 && wallX + size / 2 < this.x + this.width + paddingX && wallY + size / 2 > this.y - paddingY * 1.2 && wallY + size / 2 < this.y + this.height - paddingY) {
 						this.stop();
 					}
 				}
