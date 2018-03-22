@@ -26,7 +26,7 @@ let
 				.substring(1);
 		};
 		return ( iD() + iD() + '-' + iD() + '-' + iD() + iD() + iD() );
-	};
+	},
 	initialPositionTank = () => {
 		let randomCoord = getRandomInt(1, 4);
 		let init = {};
