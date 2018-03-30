@@ -1,4 +1,5 @@
 import mapArray from './mapArray';
+import $ from 'jquery';
 
 let
 	getRandomInt = (min, max) => {

@@ -1,5 +1,6 @@
 import Tank from './tank';
 import Shell from './shell';
+import $ from 'jquery';
 
 class Game {
 	constructor(arenaId, w, h, socket) {

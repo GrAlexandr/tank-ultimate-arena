@@ -1,14 +1,16 @@
 import Game from './game';
 import init from './init';
 import mapArray from './mapArray';
+import $ from 'jquery';
+import io from 'socket.io-client';
 
 const
 	width = 1536,
-	height = 734;
+	height = 734,
+	socket = io('http://localhost:3000');
+	// socket = io('https://tank-ultimate-arena.herokuapp.com/');
 
 let
-	// socket = io.connect('https://tank-ultimate-arena.herokuapp.com/'),
-	socket = io.connect('localhost:3000'),
 	game = new Game('#arena', width, height, socket),
 	tankType = 1,
 	tankName = '',
@@ -27,10 +29,6 @@ socket.on('addTank', (tank) => {
 
 socket.on('sync', (gameServerData) => {
 	game.receiveData(gameServerData);
-});
-
-socket.on('killTank', (tankData) => {
-	game.killTank(tankData);
 });
 
 socket.on('removeTank', (tankId) => {
@@ -110,7 +108,3 @@ $(document).ready( () => {
 		}
 	});
 });
-
-// $('#arena').click( function (event) {
-// 	console.log(this.value = event.clientX+':'+event.clientY);
-// });

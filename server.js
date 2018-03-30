@@ -35,7 +35,7 @@ let
 	// 		init.y = getRandomInt(10, 650);
 	// 	} else if (randomCoord === 2) {
 	// 		init.x = getRandomInt(1270, 1470);
-	// 		init.y = getRandomInt(300, 600);
+	// 		init.y = getRandomInt(10, 600);
 	// 	} else if (randomCoord === 3) {
 	// 		init.x = getRandomInt(900, 1000);
 	// 		init.y = getRandomInt(10, 600);
@@ -90,8 +90,8 @@ class GameServer {
 		this.shells.forEach((shell) => {
 			this.detectCollisionShell(shell);
 			this.detectCollisionShellWall(shell);
-			if (shell.x < 0 || shell.x > 1550
-				|| shell.y < 0 || shell.y > 750) {
+			if (shell.x < 0 || shell.x > 1536
+				|| shell.y < 0 || shell.y > 734) {
 				shell.out = true;
 			} else {
 				shell.fly();
@@ -158,46 +158,23 @@ class GameServer {
 		let init = {};
 		init.x = getRandomInt(40, 1400);
 		init.y = getRandomInt(20, 600);
-			for (let r = 0; r < this.mapArray.length; r++) {
-				for (let c = 0; c < this.mapArray[r].length; c++) {
-					let wallX = ( c * (this.size / 2) ),
-							wallY = ( r * (this.size / 2) );
-					if(this.mapArray[r][c] === 1 || this.mapArray[r][c] === 2) {
-						if (wallX > init.x - this.heightTank && wallY > init.y - this.widthTank || wallX + this.size / 2 < init.x + this.heightTank * 1.5 && wallY + this.size / 2 < init.y + this.widthTank * 1.5) {
-							return init;
-						} else {
-							init.x = getRandomInt(40, 1400);
-							init.y = getRandomInt(20, 600);
-							--r;
-						}
+		for (let r = 0; r < this.mapArray.length; r++) {
+			for (let c = 0; c < this.mapArray[r].length; c++) {
+				let wallX = ( c * (this.size / 2) ),
+						wallY = ( r * (this.size / 2) );
+				if(this.mapArray[r][c] === 1 || this.mapArray[r][c] === 2) {
+					if (wallX > init.x - this.heightTank && wallY > init.y - this.widthTank && wallX + this.size / 2 < init.x + this.heightTank && wallY + this.size / 2 < init.y + this.widthTank) {
+						return init;
+					} else {
+						init.x = getRandomInt(40, 1400);
+						init.y = getRandomInt(20, 600);
+						--c;
 					}
 				}
 			}
+		}
 	}
 
-	// initialPositionTank() {
-	// 	let init = {};
-	// 	init.x = getRandomInt(40, 1400);
-	// 	init.y = getRandomInt(20, 600);
-	// 	this.mapArray.forEach( (cell, r) => {
-	// 		this.mapArray[r].forEach( (cell, c) => {
-	// 			let wallX = ( c * (this.size / 2) ),
-	// 				wallY = ( r * (this.size / 2) ),
-	// 				paddingX = 25,
-	// 				paddingY = 15;
-	// 			if(this.mapArray[r][c] === 1 || this.mapArray[r][c] === 2) {
-	// 				if (wallX + this.size / 2 > init.x - paddingX * 1.5 && wallX + this.size / 2 < init.x + this.widthTank + paddingX && wallY + this.size / 2 > init.y - paddingY * 1.2 && wallY + this.size / 2 < init.y + this.heightTank - paddingY) {
-	// 					return init;
-	// 				} else {
-	// 					return init = {
-	// 						x: getRandomInt(20, 120),
-	// 						y: getRandomInt(10, 650)
-	// 					};
-	// 				}
-	// 			}
-	// 		});
-	// 	});
-	// }
 }
 
 class Shell {
@@ -227,9 +204,9 @@ io.on('connection', (client) => {
 	client.on('joinGame', (tank) => {
 		console.log(tank.name + ' in game');
 
+		let tankId = idGenerator();
 		let init = game.initialPositionTank();
 		// let init = initialPositionTank();
-		let tankId = idGenerator();
 
 		client.emit('addTank', { id: tankId, name: tank.name, type: tank.type, isLocal: true, x: init.x, y: init.y, hp: 100 });
 		client.broadcast.emit('addTank', { id: tankId, name: tank.name, type: tank.type, isLocal: false, x: init.x, y: init.y, hp: 100});

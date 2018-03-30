@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 class Shell {
 	constructor(id, ownerId, $arena, x, y) {
 		this.id = id;
