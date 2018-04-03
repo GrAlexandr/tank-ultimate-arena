@@ -9,7 +9,9 @@
     "build": "webpack -p",
     "server-dev": "nodemon server.js",
     "postinstall": "webpack",
-    "heroku-postbuild": "webpack -p"
+    "heroku-postbuild": "webpack -p",
+    "build-and-beautify": "webpack --mode production && html dist/*.html --indent-size 2",
+    "beautify": "html dist/*.html --indent-size 2"
   },
   "dependencies": {
     "babel": "^6.23.0",
@@ -17,17 +19,28 @@
     "babel-loader": "^7.1.4",
     "babel-preset-es2015": "^6.24.1",
     "body-parser": "^1.17.2",
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.8",
     "expose-loader": "^0.7.5",
     "express": "^4.15.3",
+    "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.9",
+    "fs": "0.0.1-security",
+    "html-cli": "^1.0.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.1.0",
     "http-server": "^0.11.1",
+    "jquery": "^3.3.1",
     "json-loader": "^0.5.7",
     "nodemon": "^1.15.1",
     "path": "^0.12.7",
+    "raw-loader": "^0.5.1",
     "socket.io": "^1.3.7",
+    "socket.io-client": "^2.1.0",
     "style-loader": "^0.19.1",
     "url-loader": "^0.6.2",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-audio-sprite-plugin": "^0.1.0"
   }
 }

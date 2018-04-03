@@ -1,43 +1,56 @@
-const path = require('path');
-const SRC_DIR = path.join(__dirname, '/static/src');
-const DIST_DIR = path.join(__dirname, '/static/dist');
-const webpack = require('webpack');
+const
+	path = require('path'),
+	webpack = require('webpack'),
+	ExtractTextPlugin = require("extract-text-webpack-plugin"),
+	HtmlWebpackPlugin = require('html-webpack-plugin'),
+	AudioSpritePlugin = require("webpack-audio-sprite-plugin");
 
 module.exports = {
-	entry: `${SRC_DIR}/client.js`,
+	entry: [
+		path.join(__dirname, 'src/js/client.js'),
+		path.join(__dirname, 'src/css/style.css')
+	],
 	output: {
-		path: DIST_DIR,
-		filename: 'bundle.js',
+		path: path.join(__dirname,'dist'),
+		filename: 'js/bundle.js'
 	},
 	module: {
-		loaders: [
+		rules: [
+			{
+				test: /\.js$/,
+				exclude: /(node_modules|bower_components)/,
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['es2015']
+					}
+				}
+			},
 			{
 				test: /\.css$/,
-				loader: 'style-loader!css-loader'
+				use: ExtractTextPlugin.extract({
+					use: 'css-loader',
+					fallback: 'style-loader'
+				})
 			},
 			{
-				test: /\.png$/,
-				loader: 'url-loader?limit=100000&minetype=image/png'
+				test: /\.html$/,
+				include: path.resolve(__dirname, 'src/html/includes'),
+				use: ['raw-loader']
 			},
 			{
-				test: /\.jpg/,
-				loader: "url-loader?limit=10000&mimetype=image/jpg"
-			},
-			{
-				test: /\.(js|jsx)$/,
-				use: [
-					{
-						loader: 'babel-loader',
-						options: {
-							presets: ['es2015'],
-						},
-					},
-				],
-			},
+				test: /\.(jpe?g|png|gif|svg|mp3)$/i,
+				use: 'file-loader'
+			}
 		]
 	},
-
 	plugins: [
+		new HtmlWebpackPlugin(),
+		new ExtractTextPlugin({
+			filename: 'css/bundle.css',
+			allChunks: true,
+		}),
+		new AudioSpritePlugin(),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify('production')
 		}),

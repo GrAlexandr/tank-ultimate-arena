@@ -1,5 +1,6 @@
 import Tank from './tank';
 import Shell from './shell';
+import $ from 'jquery';
 
 class Game {
 	constructor(arenaId, w, h, socket) {
@@ -39,9 +40,9 @@ class Game {
 		tank.dead = true;
 		this.removeTank(tank.id);
 
-		this.$arena.append('<img id="expl' + tank.id + '" class="explosion" src="./img/fire2.gif"/>');
-		this.$arena.append('<img id="exp2' + tank.id + '" class="explosion" src="./img/fire.gif"/>');
-		this.$arena.append('<audio id="sound-exp' + tank.id + '" src="sound/exp.mp3" autoplay preload>');
+		this.$arena.append('<img id="expl' + tank.id + '" class="explosion" src="../img/fire2.gif"/>');
+		this.$arena.append('<img id="exp2' + tank.id + '" class="explosion" src="../img/fire.gif"/>');
+		this.$arena.append('<audio id="sound-exp' + tank.id + '" src="../sound/exp.mp3" autoplay preload>');
 		$('#expl' + tank.id).css('left', (tank.x - 50)  + 'px');
 		$('#expl' + tank.id).css('top', (tank.y - 100)  + 'px');
 		$('#exp2' + tank.id).css('left', (tank.x - 50)  + 'px');
