@@ -45,7 +45,10 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new HtmlWebpackPlugin(),
+		new HtmlWebpackPlugin({
+			filename: 'index.html',
+			template: 'src/index.html'
+		}),
 		new ExtractTextPlugin({
 			filename: 'css/bundle.css',
 			allChunks: true,
